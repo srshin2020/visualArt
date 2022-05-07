@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- 스크립트없이 인풋과 라벨로 모달윈도우(팝업효과) 만들기! 코딩하기 /* web코딩강좌 */[HTML+CSS{코남}] -->
+<!-- https://www.youtube.com/watch?v=h79yJiTenEo -->
 
 <head>
     <meta charset="UTF-8">
@@ -7,17 +9,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 화면에 안보이게 처리 */
         input[id='popup'] {
             display: none;
         }
 
+        /* modal 창 activate */
         input[id='popup']+label {
             display: inline-block;
             padding: 20px;
             background: #ffcd41;
             color: #fff;
+            margin: auto auto;
         }
 
+        /* modal 창 */
         input[id='popup']+label+div {
             position: fixed;
             top: 0;
@@ -27,11 +40,26 @@
             z-index: 100;
         }
 
+        /* *= : contains the substring */
+        input[id*='popup']+label+div {
+            /* animation */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 1s;
+        }
+
+        /* checked 되었을 때 모달 창 띄우기 */
+        input[id*='popup']:checked+label+div {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
         input[id='popup']+label+div>div {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: traslate(-50%, -50%);
+            transform: translate(-50%, -50%);
             width: 500px;
             height: 300px;
             background: #fff;
@@ -42,7 +70,7 @@
             position: absolute;
             top: 0%;
             right: 0%;
-            transform: traslate(40%, -40%);
+            transform: translate(40%, -40%);
             padding: 20px;
             background: #dd5347;
             border-radius: 100%;
@@ -66,12 +94,16 @@
 </script>
 
 <body>
+    <!-- input의 id와 label의 for 일치 -->
     <input type="checkbox" id="popup">
     <label for="popup">view</label>
     <div>
+        <!-- modal 창 -->
         <div>
+            <!-- modal 내 의 닫기 버튼 -->
             <label for="popup"></label>
         </div>
+        <!-- modal 창 외의 공간  -->
         <label for="popup"></label>
     </div>
 
